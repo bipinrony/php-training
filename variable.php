@@ -11,4 +11,8 @@ $hello = "world";
 $call = "hello";
 $greeting = $$call; // variable variable
 
-echo $greeting;
+echo $greeting; // perl
+echo "<br>";
+print($greeting); // c
+echo "<br>";
+var_dump($greeting);
