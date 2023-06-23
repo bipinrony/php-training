@@ -13,3 +13,6 @@ $students = array('priyanka', 'khusboo', 'ritu', $rollNo, $bool); // array
 $name = NULL; // null
 
 var_dump($name);
+
+$dataType = gettype(false);
+echo $dataType;

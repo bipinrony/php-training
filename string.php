@@ -53,3 +53,16 @@ echo "<br>";
 
 echo ltrim('Khusboo Yadav', 'Khusboo');
 echo "<br>";
+
+// explode
+echo "<br>";
+echo "<pre>";
+$word = "My name is test";
+$explodedItems = explode(" ", $word);
+print_r($explodedItems);
+
+// implode
+echo "<br>";
+$students = array('priyanka', 'khusboo', 'ritu');
+$studentName = implode('-', $students);
+echo $studentName;
