@@ -42,3 +42,12 @@ $students = array('priyanka', 'khusboo', 'Ritoo');
 foreach ($students as $key => $student) {
     greetingMsg($student);
 }
+
+echo "<br>";
+// defult parameter
+function calc($price = 10, $tax = 0)
+{
+    $total = $price + ($price * $tax);
+    echo "$total";
+}
+calc();
