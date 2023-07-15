@@ -49,3 +49,13 @@ echo "<br>";
 $students = array('priyanka', 'khusboo', 'ritu');
 $studentName = implode('-', $students);
 echo $studentName;
+
+echo "<br>";
+$number1 = "5"; // 5
+$number2 = "50days"; // 0
+
+echo (int)$number1;
+echo "<br>";
+echo (int)$number2;
+
+echo "1" + "2";
