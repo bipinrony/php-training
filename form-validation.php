@@ -2,6 +2,8 @@
 $nameError = "";
 $emailError = "";
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    print_r($_POST);
+    exit;
     if (empty($_POST['name'])) {
         $nameError = "Please enter name";
     } else {

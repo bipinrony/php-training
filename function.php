@@ -13,12 +13,12 @@ echo "<br>";
 
 // echo "Copyright 1999-" . date('Y');
 
-function sum($number1, $number2)
+function sum(int $number1, int $number2)
 {
     echo $number1 + $number2;
 }
 
-sum(4, 5);
+sum("4", "5");
 echo "<br>";
 
 function multiply($number1, $number2)

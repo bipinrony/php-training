@@ -1,22 +1,24 @@
 <?php
 
 // create a function which will take a number and print the table from 1 to 10
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
-function table($number)
-{
-    for ($i = 1; $i <= 10; $i++) {
-        echo $number . ' x ' . $i . ' = ' . ($number * $i);
-        echo "<br>";
+    function table($number)
+    {
+        for ($i = 1; $i <= 10; $i++) {
+            echo $number . ' x ' . $i . ' = ' . ($number * $i);
+            echo "<br>";
+        }
     }
+    $number = $_POST['test_number'];
+    table($number);
+    // for ($i = 1; $i <= 10; $i++) {
+    //     echo "==================Table of " . $i . "===================";
+    //     echo "<br>";
+    //     table($i);
+    //     echo "<br>";
+    // }
 }
-$number = $_POST['test_number'];
-table($number);
-// for ($i = 1; $i <= 10; $i++) {
-//     echo "==================Table of " . $i . "===================";
-//     echo "<br>";
-//     table($i);
-//     echo "<br>";
-// }
 ?>
 
 <!DOCTYPE html>
