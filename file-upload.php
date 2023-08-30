@@ -10,10 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             if (file_exists($upladedFilename)) { // check duplicate file 
                 echo "File exists with same name";
             } else {
-                $isUploaded = move_uploaded_file(
-                    $_FILES["file_to_upload"]["tmp_name"],
-                    $upladedFilename
-                );
+
                 if ($isUploaded) {
                     echo $_FILES["file_to_upload"]["name"] . " uploaded successfully";
                 } else {
