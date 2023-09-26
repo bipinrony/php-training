@@ -28,6 +28,7 @@ if (mysqli_num_rows($response) > 0) {
     <table border="1">
         <thead>
             <tr>
+                <td></td>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
@@ -39,15 +40,19 @@ if (mysqli_num_rows($response) > 0) {
         </thead>
         <tbody>
             <?php foreach ($students as $student) { ?>
-                <tr>
-                    <td><?php echo $student['id']; ?> </td>
-                    <td><?php echo ucfirst($student['name']); ?> </td>
-                    <td><?php echo $student['email']; ?> </td>
-                    <td><?php echo $student['phone_number']; ?> </td>
-                    <td><?php echo ucfirst($student['gender']); ?> </td>
-                    <td><?php echo $student['date_of_birth']; ?> </td>
-                    <td><?php echo $student['address']; ?> </td>
-                </tr>
+            <tr>
+                <td>
+                    <a href="edit.php?student_id=<?php echo $student['id']; ?>">Edit</a> |
+                    <a href="delete.php?student_id=<?php echo $student['id']; ?>">Delete</a>
+                </td>
+                <td><?php echo $student['id']; ?> </td>
+                <td><?php echo ucfirst($student['name']); ?> </td>
+                <td><?php echo $student['email']; ?> </td>
+                <td><?php echo $student['phone_number']; ?> </td>
+                <td><?php echo ucfirst($student['gender']); ?> </td>
+                <td><?php echo $student['date_of_birth']; ?> </td>
+                <td><?php echo $student['address']; ?> </td>
+            </tr>
             <?php } ?>
 
         </tbody>
