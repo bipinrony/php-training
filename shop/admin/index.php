@@ -1,6 +1,11 @@
 <?php
 session_start();
-require_once '../database/connection.php';
+require_once '../constants.php';
+require_once SHOP_DIR . 'database/connection.php';
+
+if (isset($_SESSION['admin'])) {
+    header('Location: dashboard.php');
+}
 
 $errors = array();
 

@@ -1,11 +1,6 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "php_training_ecommerce";
-
 // Create connection
-$connection = mysqli_connect($servername, $username, $password, $database);
+$connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 // Check connection
 if (!$connection) {
