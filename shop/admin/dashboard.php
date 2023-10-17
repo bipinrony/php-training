@@ -2,6 +2,7 @@
 session_start();
 require_once '../constants.php';
 require_once SHOP_DIR . 'database/connection.php';
+
 require_once SHOP_ADMIN_DIR . 'check-login.php';
 
 ?>
