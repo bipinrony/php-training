@@ -4,25 +4,15 @@ require_once '../../constants.php';
 require_once SHOP_DIR . 'database/connection.php';
 require_once SHOP_ADMIN_DIR . 'check-login.php';
 
-if (isset($_GET['id'])) {
-    $categorySql = "SELECT * FROM categories WHERE id = " . (int)$_GET['id'];
-    $response = mysqli_query($connection, $categorySql);
-    if (mysqli_num_rows($response) > 0) {
-        $category = mysqli_fetch_assoc($response);
-    } else {
-        die('Category not found');
-    }
-} else {
-    die('ID is missing');
-}
 $error = "";
 $success = "";
 $errors = array();
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    if (isset($_POST['name']) && $_POST['name'] != "") {
-        $name = $_POST['name'];
+
+    if (isset($_FILES['image']) && $_FILES['image']['name'] != "") {
+        $image = $_FILES['image'];
     } else {
-        array_push($errors, "name is required");
+        array_push($errors, "Category Image is required");
     }
 
     if (isset($_POST['status']) && $_POST['status'] != "") {
@@ -31,39 +21,26 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         array_push($errors, "status is required");
     }
 
-    if (isset($_POST['description']) && $_POST['description'] != "") {
-        $description = $_POST['description'];
-    } else {
-        array_push($errors, "description is required");
-    }
-
     if (count($errors) == 0) {
+        $fileName = time() . $image['name'];
+        $uploadPath =  "images/sliders/";
 
-        $updateCategorySql = "UPDATE categories SET 
-        name = '" . $name . "' , 
-        description = '" . $description . "', 
-        status =" . (int)$status . " WHERE id=" . $_POST['category_id'];
+        $uploadFileName =  $uploadPath . $fileName;
 
-        if (isset($_FILES['image']) && $_FILES['image']['name'] != "") {
-            $image = $_FILES['image'];
-            $fileName = time() . $image['name'];
-            $uploadPath =  "images/categories/";
-            $uploadFileName =  $uploadPath . $fileName;
-            move_uploaded_file($image['tmp_name'], SHOP_DIR . $uploadFileName);
+        move_uploaded_file($image['tmp_name'], SHOP_DIR . $uploadFileName);
 
-            $updateCategorySql = "UPDATE categories SET 
-            name = '" . $name . "' , 
-            image = '" . $uploadFileName . "', 
-            description = '" . $description . "', 
-            status =" . (int)$status . " WHERE id=" . $_POST['category_id'];
-        }
-
-        $response = mysqli_query($connection, $updateCategorySql);
+        $insertSql = "INSERT INTO sliders  VALUES (
+            NULL,
+            '" . $uploadFileName . "',
+            " . $status . "
+        )";
+        // echo $insertSql;
+        // exit;
+        $response = mysqli_query($connection, $insertSql);
         if ($response) {
-            $success = "Category updated successfully.";
-            header('Location: list.php');
+            $success = "Slider created successfully.";
         } else {
-            $error = 'Failed to update Category:' . mysqli_error($connection);
+            $error = 'Failed to create Slider:' . mysqli_error($connection);
         }
     }
 }
@@ -118,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Add new</h1>
-                        <a href="<?php echo ADMIN_BASE_URL . 'category/list.php'; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> List</a>
+                        <a href="<?php echo ADMIN_BASE_URL . 'slider/list.php'; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> List</a>
                     </div>
 
                     <div class="row">
@@ -151,12 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                                     <?php } ?>
 
                                     <form class="user" method="post" enctype="multipart/form-data">
-                                        <input type="hidden" name="category_id" value="<?php echo $category['id']; ?>">
                                         <div class="form-group row">
-                                            <div class="col-sm-4 mb-3 mb-sm-0">
-                                                <label for="">Name</label>
-                                                <input type="text" class="form-control" name="name" placeholder="Name" value="<?php echo $category['name']; ?>">
-                                            </div>
 
                                             <div class="col-sm-4">
                                                 <label for="">Image</label>
@@ -166,22 +138,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                                             <div class="col-sm-4">
                                                 <label for="">Status</label>
                                                 <select name="status" class="form-control ">
-                                                    <option value="1" <?php if ($category['status'] == 1) {
-                                                                            echo "selected";
-                                                                        } ?>>
-                                                        Active</option>
-                                                    <option value="0" <?php if ($category['status'] == 0) {
-                                                                            echo "selected";
-                                                                        } ?>>In
-                                                        Active</option>
+                                                    <option value="1">Active</option>
+                                                    <option value="0">In Active</option>
                                                 </select>
                                             </div>
 
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="">Description</label>
-                                            <textarea name="description" class="form-control"><?php echo $category['description']; ?></textarea>
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block">

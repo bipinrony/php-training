@@ -4,14 +4,14 @@ require_once '../../constants.php';
 require_once SHOP_DIR . 'database/connection.php';
 require_once SHOP_ADMIN_DIR . 'check-login.php';
 
-$categoryListSql = "SELECT * FROM categories";
-$response = mysqli_query($connection, $categoryListSql);
+$sliderListSql = "SELECT * FROM sliders";
+$response = mysqli_query($connection, $sliderListSql);
 
-$categories = array();
+$sliders = array();
 
 if (mysqli_num_rows($response) > 0) {
     while ($row = mysqli_fetch_assoc($response)) {
-        array_push($categories, $row);
+        array_push($sliders, $row);
     }
 }
 ?>
@@ -27,7 +27,7 @@ if (mysqli_num_rows($response) > 0) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Categories</title>
+    <title>sliders</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?php echo ADMIN_BASE_URL; ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -63,8 +63,8 @@ if (mysqli_num_rows($response) > 0) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Categories</h1>
-                        <a href="<?php echo ADMIN_BASE_URL . 'category/add.php'; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add new</a>
+                        <h1 class="h3 mb-0 text-gray-800">sliders</h1>
+                        <a href="<?php echo ADMIN_BASE_URL . 'slider/add.php'; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add new</a>
                     </div>
 
                     <div class="row">
@@ -80,30 +80,26 @@ if (mysqli_num_rows($response) > 0) {
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>Image</th>
-                                                    <th>Name</th>
                                                     <th>Status</th>
-                                                    <th>Description</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($categories as $category) { ?>
+                                                <?php foreach ($sliders as $slider) { ?>
                                                     <tr>
-                                                        <td><?php echo $category['id'] ?></td>
-                                                        <td><img src="<?php echo BASE_URL . $category['image'] ?>" alt="" height="50">
+                                                        <td><?php echo $slider['id'] ?></td>
+                                                        <td><img src="<?php echo BASE_URL . $slider['image'] ?>" alt="" height="50">
                                                         </td>
-                                                        <td><?php echo $category['name'] ?></td>
                                                         <td>
-                                                            <?php if ($category['status'] == 1) {
+                                                            <?php if ($slider['status'] == 1) {
                                                                 echo "Active";
                                                             } else {
                                                                 echo "In Active";
                                                             } ?>
                                                         </td>
-                                                        <td><?php echo $category['description'] ?></td>
                                                         <td>
-                                                            <a href="edit.php?id=<?php echo $category["id"]; ?>" class="btn btn-primary"> Edit</a>
-                                                            <a href="delete.php?id=<?php echo $category["id"]; ?>" class="btn btn-danger"> Delete</a>
+                                                            <a href="edit.php?id=<?php echo $slider["id"]; ?>" class="btn btn-primary"> Edit</a>
+                                                            <a href="delete.php?id=<?php echo $slider["id"]; ?>" class="btn btn-danger"> Delete</a>
                                                         </td>
 
                                                     </tr>

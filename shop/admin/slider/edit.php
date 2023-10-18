@@ -5,12 +5,12 @@ require_once SHOP_DIR . 'database/connection.php';
 require_once SHOP_ADMIN_DIR . 'check-login.php';
 
 if (isset($_GET['id'])) {
-    $categorySql = "SELECT * FROM categories WHERE id = " . (int)$_GET['id'];
-    $response = mysqli_query($connection, $categorySql);
+    $sliderSql = "SELECT * FROM sliders WHERE id = " . (int)$_GET['id'];
+    $response = mysqli_query($connection, $sliderSql);
     if (mysqli_num_rows($response) > 0) {
-        $category = mysqli_fetch_assoc($response);
+        $slider = mysqli_fetch_assoc($response);
     } else {
-        die('Category not found');
+        die('slider not found');
     }
 } else {
     die('ID is missing');
@@ -19,11 +19,6 @@ $error = "";
 $success = "";
 $errors = array();
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    if (isset($_POST['name']) && $_POST['name'] != "") {
-        $name = $_POST['name'];
-    } else {
-        array_push($errors, "name is required");
-    }
 
     if (isset($_POST['status']) && $_POST['status'] != "") {
         $status = $_POST['status'];
@@ -31,39 +26,29 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         array_push($errors, "status is required");
     }
 
-    if (isset($_POST['description']) && $_POST['description'] != "") {
-        $description = $_POST['description'];
-    } else {
-        array_push($errors, "description is required");
-    }
-
     if (count($errors) == 0) {
 
-        $updateCategorySql = "UPDATE categories SET 
-        name = '" . $name . "' , 
-        description = '" . $description . "', 
-        status =" . (int)$status . " WHERE id=" . $_POST['category_id'];
+        $updateSliderSql = "UPDATE sliders SET 
+        status =" . (int)$status . " WHERE id=" . $_POST['slider_id'];
 
         if (isset($_FILES['image']) && $_FILES['image']['name'] != "") {
             $image = $_FILES['image'];
             $fileName = time() . $image['name'];
-            $uploadPath =  "images/categories/";
+            $uploadPath =  "images/sliders/";
             $uploadFileName =  $uploadPath . $fileName;
             move_uploaded_file($image['tmp_name'], SHOP_DIR . $uploadFileName);
 
-            $updateCategorySql = "UPDATE categories SET 
-            name = '" . $name . "' , 
+            $updateSliderSql = "UPDATE sliders SET 
             image = '" . $uploadFileName . "', 
-            description = '" . $description . "', 
-            status =" . (int)$status . " WHERE id=" . $_POST['category_id'];
+            status =" . (int)$status . " WHERE id=" . $_POST['slider_id'];
         }
 
-        $response = mysqli_query($connection, $updateCategorySql);
+        $response = mysqli_query($connection, $updateSliderSql);
         if ($response) {
-            $success = "Category updated successfully.";
+            $success = "Slider updated successfully.";
             header('Location: list.php');
         } else {
-            $error = 'Failed to update Category:' . mysqli_error($connection);
+            $error = 'Failed to update Slider:' . mysqli_error($connection);
         }
     }
 }
@@ -81,11 +66,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Category|Add</title>
+    <title>Slider|Add</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?php echo ADMIN_BASE_URL; ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="<?php echo ADMIN_BASE_URL . 'css/sb-admin-2.min.css'; ?>" rel="stylesheet">
@@ -118,7 +105,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Add new</h1>
-                        <a href="<?php echo ADMIN_BASE_URL . 'category/list.php'; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> List</a>
+                        <a href="<?php echo ADMIN_BASE_URL . 'slider/list.php'; ?>"
+                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-plus fa-sm text-white-50"></i> List</a>
                     </div>
 
                     <div class="row">
@@ -130,58 +119,50 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                                 <div class="card-body">
 
                                     <?php if ($error !== "") { ?>
-                                        <div class="alert alert-danger">
-                                            <?php echo $error; ?>
-                                        </div>
+                                    <div class="alert alert-danger">
+                                        <?php echo $error; ?>
+                                    </div>
                                     <?php } ?>
 
                                     <?php if ($success !== "") { ?>
-                                        <div class="alert alert-primary">
-                                            <?php echo $success; ?>
-                                        </div>
+                                    <div class="alert alert-primary">
+                                        <?php echo $success; ?>
+                                    </div>
                                     <?php } ?>
 
                                     <?php if (count($errors)) { ?>
-                                        <ul class="alert alert-danger">
-                                            <?php foreach ($errors as $error) {
+                                    <ul class="alert alert-danger">
+                                        <?php foreach ($errors as $error) {
                                                 echo "<li>" . $error . "</li>";
                                             } ?>
 
-                                        </ul>
+                                    </ul>
                                     <?php } ?>
 
                                     <form class="user" method="post" enctype="multipart/form-data">
-                                        <input type="hidden" name="category_id" value="<?php echo $category['id']; ?>">
+                                        <input type="hidden" name="slider_id" value="<?php echo $slider['id']; ?>">
                                         <div class="form-group row">
-                                            <div class="col-sm-4 mb-3 mb-sm-0">
-                                                <label for="">Name</label>
-                                                <input type="text" class="form-control" name="name" placeholder="Name" value="<?php echo $category['name']; ?>">
-                                            </div>
 
                                             <div class="col-sm-4">
                                                 <label for="">Image</label>
-                                                <input type="file" class="form-control" name="image" placeholder="Image">
+                                                <input type="file" class="form-control" name="image"
+                                                    placeholder="Image">
                                             </div>
 
                                             <div class="col-sm-4">
                                                 <label for="">Status</label>
                                                 <select name="status" class="form-control ">
-                                                    <option value="1" <?php if ($category['status'] == 1) {
+                                                    <option value="1" <?php if ($slider['status'] == 1) {
                                                                             echo "selected";
                                                                         } ?>>
                                                         Active</option>
-                                                    <option value="0" <?php if ($category['status'] == 0) {
+                                                    <option value="0" <?php if ($slider['status'] == 0) {
                                                                             echo "selected";
                                                                         } ?>>In
                                                         Active</option>
                                                 </select>
                                             </div>
 
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="">Description</label>
-                                            <textarea name="description" class="form-control"><?php echo $category['description']; ?></textarea>
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
@@ -216,7 +197,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         </a>
 
         <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

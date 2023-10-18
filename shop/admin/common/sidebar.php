@@ -36,6 +36,20 @@
         </div>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#slider-menu" aria-expanded="true"
+            aria-controls="slider-menu">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Sliders</span>
+        </a>
+        <div id="slider-menu" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="<?php echo ADMIN_BASE_URL . 'slider/list.php'; ?>">List</a>
+                <a class="collapse-item" href="<?php echo ADMIN_BASE_URL . 'slider/add.php'; ?>">Add</a>
+            </div>
+        </div>
+    </li>
+
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
