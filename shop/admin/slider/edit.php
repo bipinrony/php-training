@@ -70,9 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     <!-- Custom fonts for this template-->
     <link href="<?php echo ADMIN_BASE_URL; ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="<?php echo ADMIN_BASE_URL . 'css/sb-admin-2.min.css'; ?>" rel="stylesheet">
@@ -105,9 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Add new</h1>
-                        <a href="<?php echo ADMIN_BASE_URL . 'slider/list.php'; ?>"
-                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-plus fa-sm text-white-50"></i> List</a>
+                        <a href="<?php echo ADMIN_BASE_URL . 'slider/list.php'; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> List</a>
                     </div>
 
                     <div class="row">
@@ -119,24 +115,24 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                                 <div class="card-body">
 
                                     <?php if ($error !== "") { ?>
-                                    <div class="alert alert-danger">
-                                        <?php echo $error; ?>
-                                    </div>
+                                        <div class="alert alert-danger">
+                                            <?php echo $error; ?>
+                                        </div>
                                     <?php } ?>
 
                                     <?php if ($success !== "") { ?>
-                                    <div class="alert alert-primary">
-                                        <?php echo $success; ?>
-                                    </div>
+                                        <div class="alert alert-primary">
+                                            <?php echo $success; ?>
+                                        </div>
                                     <?php } ?>
 
                                     <?php if (count($errors)) { ?>
-                                    <ul class="alert alert-danger">
-                                        <?php foreach ($errors as $error) {
+                                        <ul class="alert alert-danger">
+                                            <?php foreach ($errors as $error) {
                                                 echo "<li>" . $error . "</li>";
                                             } ?>
 
-                                    </ul>
+                                        </ul>
                                     <?php } ?>
 
                                     <form class="user" method="post" enctype="multipart/form-data">
@@ -145,8 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
                                             <div class="col-sm-4">
                                                 <label for="">Image</label>
-                                                <input type="file" class="form-control" name="image"
-                                                    placeholder="Image">
+                                                <input type="file" class="form-control" name="image" placeholder="Image">
                                             </div>
 
                                             <div class="col-sm-4">
@@ -197,8 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         </a>
 
         <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

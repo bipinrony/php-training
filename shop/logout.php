@@ -2,8 +2,8 @@
 session_start();
 
 
-// session_unset($_SESSION['admin']);
+// session_unset($_SESSION['user']);
 // session_destroy();
-unset($_SESSION['admin']);
+unset($_SESSION['user']);
 
 header('Location: index.php');

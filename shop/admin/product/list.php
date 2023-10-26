@@ -31,9 +31,7 @@ if (mysqli_num_rows($response) > 0) {
 
     <!-- Custom fonts for this template-->
     <link href="<?php echo ADMIN_BASE_URL; ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="<?php echo ADMIN_BASE_URL . 'css/sb-admin-2.min.css'; ?>" rel="stylesheet">
@@ -66,9 +64,7 @@ if (mysqli_num_rows($response) > 0) {
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Products</h1>
-                        <a href="<?php echo ADMIN_BASE_URL . 'product/add.php'; ?>"
-                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-plus fa-sm text-white-50"></i> Add new</a>
+                        <a href="<?php echo ADMIN_BASE_URL . 'product/add.php'; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add new</a>
                     </div>
 
                     <div class="row">
@@ -96,38 +92,35 @@ if (mysqli_num_rows($response) > 0) {
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($products as $product) { ?>
-                                                <tr>
-                                                    <td><?php echo $product['id'] ?></td>
-                                                    <td><img src="<?php echo BASE_URL . $product['image'] ?>" alt=""
-                                                            height="50">
-                                                    </td>
-                                                    <td><?php echo $product['name'] ?></td>
-                                                    <td><?php echo $product['price'] ?></td>
-                                                    <td><?php echo $product['discounted_price'] ?></td>
-                                                    <td><?php echo $product['quantity'] ?></td>
-                                                    <td>
-                                                        <?php if ($product['is_featured'] == 1) {
+                                                    <tr>
+                                                        <td><?php echo $product['id'] ?></td>
+                                                        <td><img src="<?php echo BASE_URL . $product['image'] ?>" alt="" height="50">
+                                                        </td>
+                                                        <td><?php echo $product['name'] ?></td>
+                                                        <td><?php echo $product['price'] ?></td>
+                                                        <td><?php echo $product['discounted_price'] ?></td>
+                                                        <td><?php echo $product['quantity'] ?></td>
+                                                        <td>
+                                                            <?php if ($product['is_featured'] == 1) {
                                                                 echo "Yes";
                                                             } else {
                                                                 echo "No";
                                                             } ?>
-                                                    </td>
-                                                    <td><?php echo $product['rating'] ?></td>
-                                                    <td>
-                                                        <?php if ($product['status'] == 1) {
+                                                        </td>
+                                                        <td><?php echo $product['rating'] ?></td>
+                                                        <td>
+                                                            <?php if ($product['status'] == 1) {
                                                                 echo "Active";
                                                             } else {
                                                                 echo "In Active";
                                                             } ?>
-                                                    </td>
-                                                    <td>
-                                                        <a href="edit.php?id=<?php echo $product["id"]; ?>"
-                                                            class="btn btn-primary"> Edit</a>
-                                                        <a href="delete.php?id=<?php echo $product["id"]; ?>"
-                                                            class="btn btn-danger"> Delete</a>
-                                                    </td>
+                                                        </td>
+                                                        <td>
+                                                            <a href="edit.php?id=<?php echo $product["id"]; ?>" class="btn btn-primary"> Edit</a>
+                                                            <a href="delete.php?id=<?php echo $product["id"]; ?>" class="btn btn-danger"> Delete</a>
+                                                        </td>
 
-                                                </tr>
+                                                    </tr>
                                                 <?php } ?>
                                             </tbody>
                                         </table>
@@ -159,8 +152,7 @@ if (mysqli_num_rows($response) > 0) {
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
