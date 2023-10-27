@@ -35,8 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         if ($loginResponse !== false) {
             if (mysqli_num_rows($loginResponse)) {
                 $user = mysqli_fetch_assoc($loginResponse);
-                $_SESSION['user'] = $user;
-                header('Location: index.php');
+                if ($user['status'] == 1) {
+                    $_SESSION['user'] = $user;
+                    header('Location: index.php');
+                } else {
+                    array_push($errors, "Your account is deactivated. Please contact admin.");
+                }
             } else {
                 array_push($errors, "Invalid login credential.");
             }
@@ -61,45 +65,45 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
     <style>
-    html,
-    body {
-        height: 100%;
-    }
+        html,
+        body {
+            height: 100%;
+        }
 
-    body {
-        display: flex;
-        align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background-color: #f5f5f5;
-    }
+        body {
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
 
-    .form-signin {
-        width: 100%;
-        max-width: 330px;
-        padding: 15px;
-        margin: auto;
-    }
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
 
-    .form-signin .checkbox {
-        font-weight: 400;
-    }
+        .form-signin .checkbox {
+            font-weight: 400;
+        }
 
-    .form-signin .form-floating:focus-within {
-        z-index: 2;
-    }
+        .form-signin .form-floating:focus-within {
+            z-index: 2;
+        }
 
-    .form-signin input[type="email"] {
-        margin-bottom: -1px;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-    }
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
 
-    .form-signin input[type="password"] {
-        margin-bottom: 10px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
     </style>
 </head>
 
@@ -107,13 +111,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     <main class="form-signin">
         <?php if (count($errors)) { ?>
-        <ul class="alert alert-danger">
-            <?php
+            <ul class="alert alert-danger">
+                <?php
                 foreach ($errors as $error) {
                     echo  "<li>" . $error . "</li>";
                 }
                 ?>
-        </ul>
+            </ul>
         <?php  }  ?>
 
         <form action="" method="post">
@@ -125,8 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 <label for="floatingInput">Email address</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" name="password"
-                    placeholder="Password">
+                <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
                 <label for="floatingPassword">Password</label>
             </div>
 

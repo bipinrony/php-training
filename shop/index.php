@@ -50,11 +50,11 @@ require_once SHOP_DIR . 'database/connection.php';
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <?php foreach ($sliders as $key => $slider) { ?>
-                <div class="carousel-item <?php if ($key == 0) {
+            <div class="carousel-item <?php if ($key == 0) {
                                                 echo "active";
                                             } ?>">
-                    <img src="<?php echo BASE_URL . $slider['image']; ?>" alt="Slider" style="width:100%">
-                </div>
+                <img src="<?php echo BASE_URL . $slider['image']; ?>" alt="Slider" style="width:100%">
+            </div>
             <?php } ?>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
@@ -73,44 +73,47 @@ require_once SHOP_DIR . 'database/connection.php';
             <h2 class="pb-2 border-bottom text-center">Featured products</h2>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <?php foreach ($featuredProducts as  $featuredProduct) { ?>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <?php if ($featuredProduct['discounted_price'] < $featuredProduct['price']) { ?>
-                                <!-- Sale badge-->
-                                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale
-                                </div>
-                            <?php } ?>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <?php if ($featuredProduct['discounted_price'] < $featuredProduct['price']) { ?>
+                        <!-- Sale badge-->
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale
+                        </div>
+                        <?php } ?>
 
-                            <!-- Product image-->
-                            <img class="card-img-top" src="<?php echo BASE_URL . $featuredProduct['image']; ?>" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder"><?php echo  $featuredProduct['name']; ?></h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <?php for ($i = 0; $i < $featuredProduct['rating']; $i++) { ?>
-                                            <div class="bi-star-fill"></div>
-                                        <?php } ?>
-
-                                    </div>
-                                    <!-- Product price-->
-                                    <?php if ($featuredProduct['discounted_price'] < $featuredProduct['price']) { ?>
-                                        <span class="text-muted text-decoration-line-through">₹<?php echo  $featuredProduct['price']; ?></span>
-                                        ₹<?php echo  $featuredProduct['discounted_price']; ?>
-                                    <?php } else { ?>
-                                        ₹<?php echo  $featuredProduct['price']; ?>
+                        <!-- Product image-->
+                        <img class="card-img-top" src="<?php echo BASE_URL . $featuredProduct['image']; ?>" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder"><?php echo  $featuredProduct['name']; ?></h5>
+                                <!-- Product reviews-->
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <?php for ($i = 0; $i < $featuredProduct['rating']; $i++) { ?>
+                                    <div class="bi-star-fill"></div>
                                     <?php } ?>
+
                                 </div>
+                                <!-- Product price-->
+                                <?php if ($featuredProduct['discounted_price'] < $featuredProduct['price']) { ?>
+                                <span
+                                    class="text-muted text-decoration-line-through">₹<?php echo  $featuredProduct['price']; ?></span>
+                                ₹<?php echo  $featuredProduct['discounted_price']; ?>
+                                <?php } else { ?>
+                                ₹<?php echo  $featuredProduct['price']; ?>
+                                <?php } ?>
                             </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
-                                </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                    href="add-to-cart.php?product_id=<?php echo $featuredProduct['id']; ?>">Add
+                                    to cart</a>
                             </div>
                         </div>
                     </div>
+                </div>
                 <?php } ?>
 
             </div>
