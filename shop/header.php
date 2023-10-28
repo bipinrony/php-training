@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+$cartQuantity = 0;
 $categoryListSql = "SELECT * FROM categories WHERE status = 1";
 $response = mysqli_query($connection, $categoryListSql);
 
@@ -13,6 +13,12 @@ if (mysqli_num_rows($response) > 0) {
 }
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
+    $cartSql = "SELECT count(id) as cart_count FROM `carts` WHERE user_id =" . $user['id'];
+    $cartSqlResponse = mysqli_query($connection, $cartSql);
+    if (mysqli_num_rows($cartSqlResponse) > 0) {
+        $cart = mysqli_fetch_assoc($cartSqlResponse);
+        $cartQuantity = $cart['cart_count'];
+    }
 }
 ?>
 
@@ -55,7 +61,7 @@ if (isset($_SESSION['user'])) {
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    <span class="badge bg-dark text-white ms-1 rounded-pill"><?php echo $cartQuantity; ?></span>
                 </button>
             </form>
         </div>
