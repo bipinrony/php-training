@@ -56,14 +56,12 @@ if (isset($_SESSION['user'])) {
             <?php } ?>
 
 
-            <form class="d-flex">
 
-                <button class="btn btn-outline-dark" type="submit">
-                    <i class="bi-cart-fill me-1"></i>
-                    Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill"><?php echo $cartQuantity; ?></span>
-                </button>
-            </form>
+            <a class="btn btn-outline-dark" href="cart.php">
+                <i class="bi-cart-fill me-1"></i>
+                Cart
+                <span class="badge bg-dark text-white ms-1 rounded-pill"><?php echo $cartQuantity; ?></span>
+            </a>
         </div>
     </div>
 </nav>
